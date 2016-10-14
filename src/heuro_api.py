@@ -5,7 +5,7 @@ from credentials import email, password
 class Heuro(object):
     """Basic API wrapper"""
     def __init__(self, email, password):
-        self.username = email
+        self.email = email
         self.password = password
         self.session = requests.Session()
         self.session.mount("http://", requests.adapters.HTTPAdapter(max_retries=10))
@@ -13,7 +13,7 @@ class Heuro(object):
         self.connectTimeout = 5
         self.readTimeout = 5
         self.headers = {'Content-Type': 'application/json'}
-        self._get_key_id
+        self._get_key_id()
 
     def _get_key_id(self):
         """
@@ -34,7 +34,9 @@ class Heuro(object):
         """
         url = 'http://api.cognitio.heurolabs.com/v1/pipelines'
         data = {'name': pipeline}
-        r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
+        print self.headers
+        r = self.session.post(url, data=json.dumps(data), headers=self.headers)#.json()
+        print r
         return r
 
     def process_faces(self, filename):
@@ -46,7 +48,7 @@ class Heuro(object):
         r = self.session.post(url, headers=headers, files=file).json()
         return r
 
-    
+
 
 
 
