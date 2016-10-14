@@ -21,10 +21,22 @@ class Heuro(object):
         url = 'http://api.cognitio.heurolabs.com/v1/users/login'
         data = {'email': self.email, 'password': self.password}
         r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
-        self.key = r['Key']
-        self.id = r['id']
+        # update the headers to contain our id and key for future requests
+        self.headers.update(r)
 
-        
+    def make_pipeline(self, pipeline):
+        """
+        : returns a dict contain all the info we need for the pipeline
+        : example reponse
+        :   {"id":30,"name":"examplePipline","user_id":542,"status":1,"sources":[]}
+
+        """
+        url = 'http://api.cognitio.heurolabs.com/v1/pipelines'
+        data = {'name': pipeline}
+        r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
+        return r
+
+
 
 
 
