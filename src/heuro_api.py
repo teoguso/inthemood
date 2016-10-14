@@ -25,7 +25,7 @@ class Heuro(object):
         # update the headers to contain our id and key for future requests
         self.headers.update(r)
 
-    def make_pipeline(self, pipeline):
+    def make_pipeline(self, pipeline="dumbPipeline"):
         """
         : returns a dict contain all the info we need for the pipeline
         : example reponse
