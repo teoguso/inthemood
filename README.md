@@ -9,7 +9,7 @@ what about the interior of the car?
 Can we improve the driving experience by analysing what is
 going on inside a car? 
 
-Our idea is that if wecan detect the type of mood/ambiance 
+Our idea is that if we can detect the type of mood/ambiance 
 at a given moment, we can help the driver and the passengers, 
 improving their travel experience.
 
