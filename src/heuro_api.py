@@ -35,7 +35,7 @@ class Heuro(object):
         url = 'http://api.cognitio.heurolabs.com/v1/pipelines'
         data = {'name': pipeline}
         print self.headers
-        r = self.session.post(url, data=json.dumps(data), headers=self.headers)#.json()
+        r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
         print r
         return r
 
