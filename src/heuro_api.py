@@ -38,7 +38,7 @@ class Heuro(object):
         r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
         return r
 
-    def process_faces(self, filename, pipe_id):
+    def ingest_file(self, filename, pipe_id):
         url = 'http://api.cognitio.heurolabs.com/v1/pipelines/{}/ingestfile'.format(pipe_id)
         headers = { 'Key': self.headers['Key'],
                 }
