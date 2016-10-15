@@ -8,7 +8,9 @@ def main():
     myhero = Heuro(email, password)
     #mypipe = myhero.make_pipeline(pipeline="test_pipe")
     #print(mypipe)
-    upload = myhero.ingest_file('../data/images/test_faces_2.jpg', pipeline_id)
+    # upload = myhero.ingest_file('../data/images/test_faces_2.jpg', pipeline_id)
+    file_to_ingest = '../data/audio/man-woman.mp3'
+    upload = myhero.ingest_file(file_to_ingest, pipeline_id)
     pipeline_key = upload['pipelinekey']
     #print(upload)
     results = myhero.get_results(pipeline_id, pipeline_key)
@@ -19,7 +21,11 @@ def main():
         results = myhero.get_results(pipeline_id, pipeline_key)
     print(" Success!")
     print(" Total time (secs):", tot_t)
-    print(results.json())
+    r = results.json()
+    print(" Status:", results.json()['status'])
+    r_output = r['result']['output']
+    for x, y in zip(r_output.keys(), r_output.values()):
+        print(str(x)+": "+str(y))
 
 
 
