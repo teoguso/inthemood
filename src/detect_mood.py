@@ -12,10 +12,13 @@ def main():
     pipeline_key = upload['pipelinekey']
     #print(upload)
     results = myhero.get_results(pipeline_id, pipeline_key)
+    tot_t = 0
     while results.status_code == 202:
         time.sleep(5)
+        tot_t += 5
         results = myhero.get_results(pipeline_id, pipeline_key)
-    print('Success')
+    print(" Success!")
+    print(" Total time (secs):", tot_t)
     print(results.json())
 
 
