@@ -23,6 +23,7 @@ class Heuro(object):
         data = {'email': self.email, 'password': self.password}
         r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
         # update the headers to contain our id and key for future requests
+        print r
         self.headers.update(r)
 
     def make_pipeline(self, pipeline="dumbPipeline"):
@@ -34,24 +35,23 @@ class Heuro(object):
         """
         url = 'http://api.cognitio.heurolabs.com/v1/pipelines'
         data = {'name': pipeline}
-        print self.headers
-        r = self.session.post(url, data=json.dumps(data), headers=self.headers)#.json()
-        print r
+        r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
         return r
 
-    def process_faces(self, filename):
-        url = 'http://api.cognitio.heurolabs.com/v1/pipelines/30/ingestfile'
+    def process_faces(self, filename, pipe_id):
+        url = 'http://api.cognitio.heurolabs.com/v1/pipelines/{}/ingestfile'.format(pipe_id)
         headers = {'content-Type': 'multipart/form-data',
-                    'key': self.headers[key],
+                    'Key': self.headers['Key'],
             }
         file = {'file': open(filename, 'rb')}
-        r = self.session.post(url, headers=headers, files=file).json()
+        r = self.session.post(url, headers=headers, files=file)#.json()
         return r
 
-
-
-
-
-
-
-
+    def get_results(self, pipeline_id):
+        url = 'http://api.cognitio.heurolabs.com/v1/pipelines/30/results/query'
+        headers = {'Content-Type': 'application/json; charset=UTF-8',
+                    'Key': self.headers['Key']
+                }
+        data = {'pipelinekey', pipeline_id}
+        r = self.session.post(url, data=json.dumps(data), headers=headers).json()
+        return r
