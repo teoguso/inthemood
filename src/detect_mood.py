@@ -8,7 +8,7 @@ def main():
     myhero = Heuro(email, password)
     #mypipe = myhero.make_pipeline(pipeline="test_pipe")
     #print(mypipe)
-    upload = myhero.ingest_file('../data/test_faces.jpg', pipeline_id)
+    upload = myhero.ingest_file('../data/test_faces_2.jpg', pipeline_id)
     pipeline_key = upload['pipelinekey']
     #print(upload)
     results = myhero.get_results(pipeline_id, pipeline_key)
