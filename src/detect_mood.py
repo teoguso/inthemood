@@ -1,16 +1,16 @@
 from __future__ import print_function
 from heuro_api import Heuro
-from credentials import email, password
+from credentials import email, password, pipeline_id
 from os import path
 
 def main():
     myhero = Heuro(email, password)
     #mypipe = myhero.make_pipeline(pipeline="test_pipe")
     #print(mypipe)
-    upload = myhero.process_faces('../data/test_faces.jpg', 1707)
+    upload = myhero.process_faces('../data/test_faces.jpg', pipeline_id)
     pipeline_key = upload['pipelinekey']
     #print(upload)
-    results = myhero.get_results(1707, pipeline_key)
+    results = myhero.get_results(pipeline_id, pipeline_key)
     print(results)
 
 
