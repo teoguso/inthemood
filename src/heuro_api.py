@@ -40,18 +40,17 @@ class Heuro(object):
 
     def process_faces(self, filename, pipe_id):
         url = 'http://api.cognitio.heurolabs.com/v1/pipelines/{}/ingestfile'.format(pipe_id)
-        headers = {'content-Type': 'multipart/form-data',
-                    'Key': self.headers['Key'],
-            }
+        headers = { 'Key': self.headers['Key'],
+                }
         file = {'file': open(filename, 'rb')}
-        r = self.session.post(url, headers=headers, files=file)#.json()
+        r = self.session.post(url, headers=headers, files=file).json()
         return r
 
-    def get_results(self, pipeline_id):
-        url = 'http://api.cognitio.heurolabs.com/v1/pipelines/30/results/query'
+    def get_results(self, pipeline_key, pipeline_id):
+        url = 'http://api.cognitio.heurolabs.com/v1/pipelines/{}/results/query'.format(pipeline_key)
         headers = {'Content-Type': 'application/json; charset=UTF-8',
                     'Key': self.headers['Key']
                 }
-        data = {'pipelinekey', pipeline_id}
-        r = self.session.post(url, data=json.dumps(data), headers=headers).json()
+        data = {'pipelinekey': pipeline_id}
+        r = self.session.post(url, data=json.dumps(data), headers=headers)#.json()
         return r
