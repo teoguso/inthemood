@@ -1,10 +1,13 @@
 from __future__ import print_function
 from heuro_api import Heuro
 from credentials import email, password, pipeline_id
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimage
 # from os import path
-import json
-import numpy as np
+# import json
+# import numpy as np
 import time
+import os
 
 def main():
     myhero = Heuro(email, password)
@@ -12,9 +15,9 @@ def main():
     #print(mypipe)
     # upload = myhero.ingest_file('../data/images/test_faces_2.jpg', pipeline_id)
     file_to_ingest = '../data/audio/man-woman.mp3'
-    file_to_ingest = '../data/images/two-in-car.jpg'
     file_to_ingest = '../data/images/four-in-car.jpeg'
     file_to_ingest = '../data/images/family1.jpeg'
+    file_to_ingest = '../data/images/two-in-car.jpg'
     upload = myhero.ingest_file(file_to_ingest, pipeline_id)
     pipeline_key = upload['pipelinekey']
     #print(upload)
@@ -50,15 +53,28 @@ def main():
         n_people = len(people)
         gender_image = []
         age_image = []
+        face_xy = []
         for person in people:
             gender_image.append(person['gender'])
             age_image.append(person['ageGroup'])
+            face_xy.append((person['face']['X'], person['face']['Y']))
 
     # print(" gender_audio: ", gender_audio)
     # print(" age_audio: ", age_audio)
     print("n_people: ", n_people)
     print(" gender_image: ", gender_image)
     print(" age_image: ",  age_image)
+    print(" faces: ",  face_xy)
+    import Image
+    im = Image.open(file_to_ingest)
+    im.save('Foto.png')
+    img = mpimage.imread('Foto.png')
+    plt.imshow(img)
+    for age, gend, face in zip(age_image, gender_image, face_xy):
+        plt.text(face[0],face[1], str(age)+" "+str(gend), color='magenta', fontsize=21)
+    plt.show()
+    # Remove png file, only needed for visualization
+    os.remove('Foto.png')
 
 
 
