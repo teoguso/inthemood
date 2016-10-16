@@ -34,6 +34,11 @@ def main():
     # Distinguish between image and audio (different output formats)
     inference_audio = {}
     inference_image = {}
+    is_jpeg = False
+    if file_to_ingest[-3:] == "jpg" or \
+         file_to_ingest[-4:] == "jpeg":
+        is_jpeg = True
+
     if file_to_ingest[-3:] == "mp3":
         # with open('jsonwatch_audio.txt', 'w') as outf:
         #     json.dump(r, outf, sort_keys = True, indent = 4, separators=(',', ':'))
@@ -43,7 +48,9 @@ def main():
         gender_audio = r_output['gender']
         age_audio = r_output['age']
         language = r_output['language']
-    elif file_to_ingest[-3:] == "jpg" or file_to_ingest[-4:] == "jpeg":
+    elif file_to_ingest[-3:] == "png" or\
+                    file_to_ingest[-3:] == "jpg" or\
+                    file_to_ingest[-4:] == "jpeg":
         # with open('jsonwatch_image.txt', 'w') as outf:
         #     json.dump(r, outf, sort_keys = True, indent = 4, separators=(',', ':'))
         r_output = r['result']['output']['classification']
@@ -58,6 +65,8 @@ def main():
             gender_image.append(person['gender'])
             age_image.append(person['ageGroup'])
             face_xy.append((person['face']['X'], person['face']['Y']))
+    else:
+        sys.exit(" Sorry. File format is not recognized.")
 
     # print(" gender_audio: ", gender_audio)
     # print(" age_audio: ", age_audio)
@@ -65,16 +74,22 @@ def main():
     print(" gender_image: ", gender_image)
     print(" age_image: ",  age_image)
     print(" faces: ",  face_xy)
-    import Image
-    im = Image.open(file_to_ingest)
-    im.save('Foto.png')
-    img = mpimage.imread('Foto.png')
+
+    if is_jpeg:
+        import Image
+        im = Image.open(file_to_ingest)
+        im.save('Foto.png')
+        img = mpimage.imread('Foto.png')
+    else:
+        img = mpimage.imread(file_to_ingest)
     plt.imshow(img)
+
     for age, gend, face in zip(age_image, gender_image, face_xy):
         plt.text(face[0],face[1], str(age)+" "+str(gend), color='magenta', fontsize=21)
     plt.show()
     # Remove png file, only needed for visualization
-    os.remove('Foto.png')
+    if is_jpeg:
+        os.remove('Foto.png')
 
 
 
