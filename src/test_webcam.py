@@ -15,6 +15,8 @@ while rval:
     cv2.imshow("preview", frame)
     rval, frame = vc.read()
     frame_count +=1
+    if frame_count%100 == 0:
+        upload_image(cv2.
     key = cv2.waitKey(20)
     if key == 27: # exit on ESC
         break
