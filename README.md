@@ -1,4 +1,4 @@
-# inthemood
+# imood
 Hackathon project at AI hackathon at ESCP Berlin
 
 ## The idea
@@ -15,5 +15,5 @@ improving their travel experience.
 
 
 ## Useful links
-API exasmples:
+API examples:
 https://heurolabs.atlassian.net/wiki/display/CogniDoc/Cognitio+API+Examples
