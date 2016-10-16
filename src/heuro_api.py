@@ -23,7 +23,7 @@ class Heuro(object):
         data = {'email': self.email, 'password': self.password}
         r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
         # update the headers to contain our id and key for future requests
-        print r
+        # print r
         self.headers.update(r)
 
     def make_pipeline(self, pipeline="dumbPipeline"):
