@@ -29,7 +29,7 @@ class Heuro(object):
     def make_pipeline(self, pipeline="dumbPipeline"):
         """
         : returns a dict contain all the info we need for the pipeline
-        : example reponse
+        : example response
         :   {"id":30,"name":"examplePipline","user_id":542,"status":1,"sources":[]}
 
         """
