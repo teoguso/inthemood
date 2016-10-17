@@ -24,9 +24,10 @@ class Heuro(object):
         r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
         # update the headers to contain our id and key for future requests
         # print r
-        self.headers.update(r)
+        self.id, self.key = r['id'], r['Key']
+        #self.headers.update(r)
 
-    def make_pipeline(self, pipeline="dumbPipeline"):
+    def make_pipeline(self, pipeline="default"):
         """
         : returns a dict contain all the info we need for the pipeline
         : example response
@@ -35,21 +36,26 @@ class Heuro(object):
         """
         url = 'http://api.cognitio.heurolabs.com/v1/pipelines'
         data = {'name': pipeline}
-        r = self.session.post(url, data=json.dumps(data), headers=self.headers).json()
+        headers = {'Content-Type': 'application/json',
+                    'User': self.id,
+                    'Key' : self.key
+                }
+        r = self.session.post(url, data=json.dumps(data), headers=headers).json()
         return r
 
     def ingest_file(self, filename, pipe_id):
         url = 'http://api.cognitio.heurolabs.com/v1/pipelines/{}/ingestfile'.format(pipe_id)
-        headers = { 'Key': self.headers['Key'],
+        headers = { 'Key': self.key,
                 }
-        file = {'file': open(filename, 'rb')}
-        r = self.session.post(url, headers=headers, files=file).json()
-        return r
+        with open(filename, 'rb') as open_file:
+            file = {'file': open_file}
+            r = self.session.post(url, headers=headers, files=file).json()
+            return r
 
     def get_results(self, pipeline_key, pipeline_id):
         url = 'http://api.cognitio.heurolabs.com/v1/pipelines/{}/results/query'.format(pipeline_key)
         headers = {'Content-Type': 'application/json; charset=UTF-8',
-                    'Key': self.headers['Key']
+                    'Key': self.key
                 }
         data = {'pipelinekey': pipeline_id}
         r = self.session.post(url, data=json.dumps(data), headers=headers)#.json()

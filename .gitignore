@@ -98,3 +98,6 @@ test_image.jpg
 
 # pretrained weights for keras CNN
 vgg16_weights.h5
+data/audio/tom_scott_russia.mp3
+
+data/video/tom_scott_russia.mp4

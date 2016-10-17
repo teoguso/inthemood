@@ -10,6 +10,7 @@ vis_rec = VisualRecognitionV3('2016-10-16', api_key=key)
 two_in_car = '../data/images/two-in-car.jpg'
 all_images = '../data/images/images.zip'
 
+
 def detect_faces(image_path):
     with open(image_path, 'rb') as image:
         return json.dumps(
@@ -20,7 +21,7 @@ def detect_faces(image_path):
 def web_cam_detect():
     cv2.namedWindow("preview")
     vc = cv2.VideoCapture(0)
-    if vc.isOpened(): # try to get the first frame
+    if vc.isOpened():  # try to get the first frame
         rval, frame = vc.read()
     else:
         rval = False
@@ -39,4 +40,3 @@ def web_cam_detect():
     cv2.destroyWindow("preview")
 
 print detect_faces(all_images)
-
