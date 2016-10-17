@@ -92,3 +92,9 @@ ENV/
 .idea/
 credentials.py
 jsonwatch*
+
+# temp image stored for using laptop camera
+test_image.jpg
+
+# pretrained weights for keras CNN
+vgg16_weights.h5
