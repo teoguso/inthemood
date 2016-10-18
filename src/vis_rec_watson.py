@@ -18,6 +18,21 @@ def detect_faces(image_path):
             indent=2
         )
 
+def stream_video(video_path):
+    cap = cv2.VideoCapture(video_path)
+    # load frames into memory
+    print 'loading vid to memory'
+    frames = list()
+    while cap.isOpened():
+        ret, frame = cap.read()
+        frames.append(frame)
+    for frame in frames:
+        cv2.imshow('frame', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    cap.release()
+    cv2.destroyAllWindows()
+
 def web_cam_detect():
     cv2.namedWindow("preview")
     vc = cv2.VideoCapture(0)
@@ -34,9 +49,11 @@ def web_cam_detect():
             cv2.imwrite('temp_image.jpg', frame)
             faces = detect_faces('temp_image.jpg')
             print faces
-        key = cv2.waitKey(20)
+        key = cv2.waitKey(1)
         if key == 27: # exit on ESC
             break
     cv2.destroyWindow("preview")
 
-print detect_faces(all_images)
+#web_cam_detect()
+#print detect_faces(all_images)
+stream_video('../data/video/tom_scott_trim.mp4')
