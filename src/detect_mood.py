@@ -66,13 +66,19 @@ def main():
     file_to_ingest = '../data/audio/man-woman.mp3'
     file_to_ingest = '../data/images/four-in-car.jpeg'
     file_to_ingest = '../data/images/family1.jpeg'
+    image_to_ingest = "../data/images/thb1.jpg"
     audio_to_ingest = '../data/audio/man-woman.mp3'
     audio_to_ingest = '../data/video/tagueule.mp3'
     image_to_ingest = '../data/video/tagueule.png'
+    image_to_ingest = '../data/images/four-in-car.jpeg'
+    image_to_ingest = '../data/images/mp1.jpeg'
+    audio_to_ingest = "../data/audio/ambianceinsidecar.mp3"
+    image_to_ingest = '../data/images/4.jpg'
+    audio_to_ingest = "../data/audio/tom_scott_trim.mp3"
     """
 
     # Image first, just because
-    image_to_ingest = "../data/images/thb1.jpg"
+    image_to_ingest = '../data/images/girls.jpg'
     audio_to_ingest = "../data/audio/baby-talk.mp3"
     files_to_ingest = [image_to_ingest, audio_to_ingest]
 
@@ -143,9 +149,43 @@ def main():
 
     print("=== Video evaluation ===")
     print("n_people: ", n_people)
-    print("gender_image: ", gender_image)
+    print("gender_image: ", [mygender[gen] for gen in gender_image])
     print("age_image: ",  age_image)
     print("faces: ",  face_xy)
+
+    children = False
+    if "Child" in age_image:
+        children = True
+    n_male = gender_image.count(1)
+    n_female = gender_image.count(0)
+    n_child = age_image.count("Child")
+    n_adult = age_image.count("Adult")
+    if n_female > n_male:
+        maj_sex = "female"
+    elif n_female < n_male:
+        maj_sex = "male"
+    else:
+        maj_sex = None
+
+    if n_child > n_adult:
+        maj_age = "Child"
+    else:
+        maj_age = "Adult"
+    # if n_male==0 or n_female==0:
+    #     mix_sex = False
+    # else:
+    #     mix_sex = True
+    print()
+    print("=== Overall mood ===")
+    print("Children: ", children)
+    print("Gender Majority: ", maj_sex)
+    print("Age Majority: ", maj_age)
+
+    if gender_audio == maj_sex:
+        print("Audio agrees with video on gender.")
+    else:
+        print("AI cannot determine gender using audio.")
+    # print("Sex Mix: ", mix_sex)
 
     if is_jpeg:
         import Image
