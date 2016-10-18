@@ -3,6 +3,7 @@ from heuro_api import Heuro
 from credentials import email, password, pipeline_id
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimage
+import matplotlib.patheffects as path_effects
 # from os import path
 # import numpy as np
 import time
@@ -43,10 +44,10 @@ def analyse_file_api(files_to_ingest, target_api, pipeline_id):
     # print("Status:", r['status'])
     return r
 
+
 def detect_jpeg(file_to_ingest):
     is_jpeg = False
-    if file_to_ingest[-3:] == "jpg" or \
-                    file_to_ingest[-4:] == "jpeg":
+    if file_to_ingest[-3:] == "jpg" or file_to_ingest[-4:] == "jpeg":
         is_jpeg = True
     return is_jpeg
 
@@ -58,8 +59,8 @@ def main():
         0: "female",
         1: "male"
     }
-    #mypipe = myhero.make_pipeline(pipeline="test_pipe")
-    #print(mypipe)
+    # mypipe = myhero.make_pipeline(pipeline="test_pipe")
+    # print(mypipe)
     # upload = myhero.ingest_file('../data/images/test_faces_2.jpg', pipeline_id)
     """
     file_to_ingest = '../data/audio/man-woman.mp3'
@@ -69,7 +70,6 @@ def main():
     audio_to_ingest = '../data/video/tagueule.mp3'
     image_to_ingest = '../data/video/tagueule.png'
     """
-
 
     # Image first, just because
     image_to_ingest = "../data/images/thb1.jpg"
@@ -82,7 +82,7 @@ def main():
             audio_to_ingest[-3:] != "mp3":
         sys.exit(" Sorry. File format is not recognized.")
 
-    is_jpeg = detect_jpeg(image_to_ingest)
+    is_jpeg = detect_jpeg(file_to_ingest=image_to_ingest)
     results = analyse_file_api(files_to_ingest, target_api=myhero, pipeline_id=pipeline_id)
     # print(results)
     # r1 = analyse_file_api(image_to_ingest, target_api=myhero, pipeline_id=pipeline_id)
@@ -157,8 +157,10 @@ def main():
     plt.imshow(img)
 
     for age, gend, face in zip(age_image, gender_image, face_xy):
-        plt.text(face[0],face[1], str(age)+" "+str(mygender[gend]), color='black', \
-                 fontsize=24) #, alpha=.8)
+        plt.text(face[0],face[1], str(age)+"\n"+str(mygender[gend]), color='white', \
+                 fontsize=24).set_path_effects(\
+            [path_effects.Stroke(linewidth=4, foreground='black'), path_effects.Normal()])
+    plt.savefig("../data/output/output.jpg")
     plt.show()
     # Remove png file, only needed for visualization
     if is_jpeg:
