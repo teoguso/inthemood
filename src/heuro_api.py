@@ -76,7 +76,7 @@ class Heuro(object):
         with open(filename, 'rb') as open_file:
             file = {'file': open_file}
             r = self.session.post(url, headers=headers, files=file)
-            for r.status_code in [200, 201]:
+            if r.status_code in [200, 201]:
                 return r.json()
             else:
                 raise Exception('Error ingesting file, response: {}'.format(r.status_code))
