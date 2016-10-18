@@ -87,7 +87,7 @@ def main():
     # print(results)
     # r1 = analyse_file_api(image_to_ingest, target_api=myhero, pipeline_id=pipeline_id)
     r1 = results[0]
-    watch_json = True
+    watch_json = False
     if watch_json:
         import json
         with open('jsonwatch_image.txt', 'w') as outf:
@@ -101,8 +101,8 @@ def main():
     r2 = results[1]
 
     # Distinguish between image and audio (different output formats)
-    inference_audio = {}
-    inference_image = {}
+    # inference_audio = {}
+    # inference_image = {}
 
     r_video = r1['result']['output']['classification']
     # for x, y in zip(r_output.keys(), r_output.values()):
@@ -149,19 +149,24 @@ def main():
 
     if is_jpeg:
         import Image
-        im = Image.open(image_to_ingest)
-        im.save('Foto.png')
-        img = mpimage.imread('Foto.png')
+        # with open(image_to_ingest, 'r') as im_input:
+        #     im = Image.open(im_input)
+        im = Image.open(image_to_ingest, 'r')
+        im.save("Foto.png") #, 'w')
+        # with open("Foto.png", 'w') as foto:
+        #     im.save(foto)
+        img = mpimage.imread('Foto.png', 'r')
     else:
         img = mpimage.imread(image_to_ingest)
     plt.imshow(img)
 
     for age, gend, face in zip(age_image, gender_image, face_xy):
-        plt.text(face[0],face[1], str(age)+"\n"+str(mygender[gend]), color='white', \
-                 fontsize=24).set_path_effects(\
-            [path_effects.Stroke(linewidth=4, foreground='black'), path_effects.Normal()])
-    plt.savefig("../data/output/output.jpg")
+        plt.text(face[0], face[1], str(age)+"\n"+str(mygender[gend]), color='white',
+                 fontsize=24).set_path_effects([path_effects.Stroke(linewidth=4, foreground='black'), path_effects.Normal()])
     plt.show()
+    outfile = "../data/output/output.jpg"
+    with open(outfile, 'w') as outf:
+        plt.savefig(outf)
     # Remove png file, only needed for visualization
     if is_jpeg:
         os.remove('Foto.png')
