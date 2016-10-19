@@ -72,14 +72,14 @@ def main():
     image_to_ingest = '../data/video/tagueule.png'
     image_to_ingest = '../data/images/four-in-car.jpeg'
     image_to_ingest = '../data/images/mp1.jpeg'
-    audio_to_ingest = "../data/audio/ambianceinsidecar.mp3"
-    image_to_ingest = '../data/images/4.jpg'
+    audio_to_ingest = "../data/audio/baby-talk.mp3"
+    image_to_ingest = '../data/images/girls.jpg'
     audio_to_ingest = "../data/audio/tom_scott_trim.mp3"
     """
 
     # Image first, just because
-    image_to_ingest = '../data/images/girls.jpg'
-    audio_to_ingest = "../data/audio/baby-talk.mp3"
+    audio_to_ingest = "../data/audio/ambianceinsidecar.mp3"
+    image_to_ingest = '../data/images/4.jpg'
     files_to_ingest = [image_to_ingest, audio_to_ingest]
 
     if image_to_ingest[-3:] != "png" and \
@@ -93,7 +93,7 @@ def main():
     # print(results)
     # r1 = analyse_file_api(image_to_ingest, target_api=myhero, pipeline_id=pipeline_id)
     r1 = results[0]
-    watch_json = False
+    watch_json = True # False
     if watch_json:
         import json
         with open('jsonwatch_image.txt', 'w') as outf:
@@ -203,6 +203,8 @@ def main():
     for age, gend, face in zip(age_image, gender_image, face_xy):
         plt.text(face[0], face[1], str(age)+"\n"+str(mygender[gend]), color='white',
                  fontsize=24).set_path_effects([path_effects.Stroke(linewidth=4, foreground='black'), path_effects.Normal()])
+    plt.xticks([])
+    plt.yticks([])
     plt.show()
     outfile = "../data/output/output.jpg"
     with open(outfile, 'w') as outf:
