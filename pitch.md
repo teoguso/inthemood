@@ -26,7 +26,7 @@
 ## Magic
 ------
     Using machine learning algorithms such as neural networks allows us to monitor video in realtime to
-    detect the presence of anything we might want to train the system on. The visual and sentiment
+    detect the presence of anything we choose to train the system on. The visual and sentiment
     features along with the driving data are then again used to predict driver behavior. Every time an
-    occupant accepts or declines the suggestion, are system learns from that. It's this behavior of the
+    occupant accepts or declines the suggestion, our system learns. It's this behavior of the
     system that allows us to offer an experience fully tailor to whoever is in the vehicle.
