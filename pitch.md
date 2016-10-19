@@ -7,7 +7,7 @@
     
 ## Solution:
 -------
-    We propose an intelligent assisant that can respond to and predict the users needs. Our system is
+    We propose an intelligent assistant that can respond to and predict the users needs. Our system is
     aware of exactly who is in the car and what the sentiment is at any given time. Using such data,
     we can learn behavior about the driver and ultimately improve the driving experience by predicting
     the drivers needs while at the same time reducing distractions.
@@ -29,4 +29,4 @@
     detect the presence of anything we choose to train the system on. The visual and sentiment
     features along with the driving data are then again used to predict driver behavior. Every time an
     occupant accepts or declines the suggestion, our system learns. It's this behavior of the
-    system that allows us to offer an experience fully tailor to whoever is in the vehicle.
+    system that allows us to offer an experience fully tailored to whoever is in the vehicle.
