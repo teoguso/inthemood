@@ -188,7 +188,7 @@ def main():
     # print("Sex Mix: ", mix_sex)
 
     if is_jpeg:
-        import Image
+        from PIL import Image
         # with open(image_to_ingest, 'r') as im_input:
         #     im = Image.open(im_input)
         im = Image.open(image_to_ingest, 'r')
